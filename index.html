@@ -4,24 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Расходы</title>
-  
-  <!-- PWA -->
+
   <link rel="manifest" href="manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Расходы" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <meta name="theme-color" content="#e6f0e6" />
-  
+
   <style>
-    /* Reset */
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
       background-color: #f9f7f1;
       color: #2a4d2a;
       min-height: 100vh;
@@ -30,228 +25,207 @@
       align-items: center;
       padding: 20px 15px;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
-    h1 {
-      color: #2a7f2a;
-      font-weight: 700;
-      margin: 0 0 20px 0;
-      font-size: 1.8rem;
-      text-align: center;
-    }
+    h1 { color: #2a7f2a; font-weight:700; margin: 0 0 12px; font-size: 1.6rem; text-align:center; }
     form {
       background: #e6f0e6;
-      padding: 20px 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(58, 100, 58, 0.15);
-      max-width: 400px;
-      width: 100%;
-      transition: box-shadow 0.3s ease;
-    }
-    form:hover, form:focus-within {
-      box-shadow: 0 6px 20px rgba(58, 100, 58, 0.3);
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #206520;
-    }
-    input[type="date"],
-    input[type="number"],
-    input[type="text"] {
-      width: 100%;
-      padding: 12px 15px;
-      margin-top: 6px;
-      border: 2px solid #7fb87f;
-      border-radius: 12px;
-      font-size: 1rem;
-      color: #1f3d1f;
-      transition: border-color 0.3s ease;
-      outline-offset: 2px;
-    }
-    input[type="date"]:focus,
-    input[type="number"]:focus,
-    input[type="text"]:focus {
-      border-color: #3c783c;
-      outline: none;
-    }
-    button {
-      margin-top: 25px;
-      background-color: #4caf50;
-      border: none;
-      color: white;
-      padding: 14px;
-      width: 100%;
-      font-size: 1.2rem;
-      font-weight: 700;
+      padding: 18px 20px;
       border-radius: 14px;
-      cursor: pointer;
-      box-shadow: 0 5px 10px rgba(76, 175, 80, 0.4);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-    }
-    button:hover,
-    button:focus {
-      background-color: #357a38;
-      box-shadow: 0 7px 15px rgba(53, 122, 56, 0.7);
-      outline: none;
-    }
-    #clearAll {
-      background-color: #b44242;
-      margin-top: 15px;
-      box-shadow: 0 5px 10px rgba(180, 66, 66, 0.4);
-    }
-    #clearAll:hover,
-    #clearAll:focus {
-      background-color: #7a2a2a;
-      box-shadow: 0 7px 15px rgba(122, 42, 42, 0.7);
-      outline: none;
-    }
-    ul {
-      max-width: 400px;
+      box-shadow: 0 4px 15px rgba(58,100,58,0.12);
+      max-width: 420px;
       width: 100%;
-      margin: 30px auto 0 auto;
-      padding: 0;
-      list-style: none;
-      min-height: 100px;
-      user-select: none;
+      transition: box-shadow .25s;
     }
+    form:focus-within { box-shadow: 0 6px 20px rgba(58,100,58,0.2); }
+    label { display:block; margin-top:10px; font-weight:600; color:#206520; }
+    input[type="date"], input[type="number"], input[type="text"]{
+      width:100%; padding:12px 14px; margin-top:6px;
+      border:2px solid #7fb87f; border-radius:10px; font-size:1rem;
+      color:#1f3d1f;
+    }
+    input:focus { border-color:#3c783c; outline:none; }
+    .buttons { display:flex; gap:10px; margin-top:18px; }
+    .btn {
+      flex:1; padding:12px 10px; font-weight:700; border-radius:12px;
+      border:none; cursor:pointer; font-size:1rem; user-select:none;
+      box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    }
+    .btn-add { background:#4caf50; color:#fff; box-shadow:0 6px 14px rgba(76,175,80,0.25); }
+    .btn-add:active { transform:translateY(1px); }
+    .btn-clear { background:#b44242; color:#fff; }
+    .summary {
+      margin-top:18px; max-width:420px; width:100%;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 16px; border-radius:12px; background:#f0f6f0; box-shadow:0 2px 8px rgba(31,61,31,0.06);
+      color:#174a18; font-weight:700;
+    }
+    ul { max-width:420px; width:100%; margin:16px auto 40px; padding:0; list-style:none; }
     li {
-      background: #d6ead6;
-      margin-bottom: 12px;
-      padding: 15px 20px;
-      border-radius: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #1f3d1f;
-      font-size: 1rem;
-      box-shadow: 0 2px 6px rgba(31, 61, 31, 0.15);
-      transition: background-color 0.2s ease;
+      background:#d6ead6; margin-bottom:10px; padding:12px 12px; border-radius:14px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      box-shadow:0 2px 6px rgba(31,61,31,0.12);
     }
-    li:hover {
-      background-color: #c8dfc8;
+    .expense-info { flex:1; min-width:0; }
+    .expense-info .desc { display:block; font-size:1rem; color:#113811; font-weight:600; }
+    .expense-info .meta { display:block; font-size:0.85rem; color:#2a4d2a; opacity:0.85; margin-top:3px; }
+    .amount { white-space:nowrap; font-weight:800; margin-left:8px; font-size:1rem; color:#06390a; }
+    /* 작은 иконка-удалить */
+    .icon-btn {
+      width:36px; height:36px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center;
+      border:none; background:transparent; cursor:pointer; padding:0;
     }
-    .expense-info {
-      max-width: 75%;
-      word-wrap: break-word;
-      line-height: 1.3;
-    }
-    .delete-btn {
-      background: #b44242;
-      border: none;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 700;
-      box-shadow: 0 3px 8px rgba(180, 66, 66, 0.4);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-    }
-    .delete-btn:hover,
-    .delete-btn:focus {
-      background: #7a2a2a;
-      box-shadow: 0 5px 12px rgba(122, 42, 42, 0.7);
-      outline: none;
-    }
-    @media (max-width: 450px) {
-      body {
-        padding: 15px 10px;
-      }
-      form, ul {
-        max-width: 100%;
-      }
-      button, .delete-btn {
-        font-size: 1rem;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
+    .icon-btn svg { width:18px; height:18px; display:block; opacity:0.9; }
+    .icon-btn:hover svg { opacity:1; transform:scale(1.05); }
+    .icon-btn:active { transform:translateY(1px); }
+    @media (max-width:450px){
+      body{ padding:14px 10px; }
+      h1{ font-size:1.3rem; }
+      .buttons{ flex-direction:column; }
+      .btn{ width:100%; }
+      .icon-btn{ width:34px; height:34px; }
     }
   </style>
 </head>
 <body>
   <h1>Мои расходы</h1>
+
   <form id="expenseForm" autocomplete="off" novalidate>
     <label for="date">Дата</label>
     <input type="date" id="date" required />
 
     <label for="amount">Сумма</label>
-    <input type="number" id="amount" min="0.01" step="0.01" placeholder="Введите сумму" required />
+    <input type="number" id="amount" min="0.01" step="0.01" placeholder="0.00" required />
 
     <label for="description">Назначение</label>
     <input type="text" id="description" placeholder="Описание расхода" maxlength="100" required />
 
-    <button type="submit">Добавить расход</button>
+    <div class="buttons">
+      <button type="submit" class="btn btn-add">Добавить расход</button>
+      <button type="button" id="clearAllSmall" class="btn btn-clear">Очистить все</button>
+    </div>
   </form>
 
-  <ul id="expenseList"></ul>
+  <div id="summary" class="summary" aria-live="polite">
+    <span>Общая сумма:</span>
+    <span id="totalAmount">0,00 ₽</span>
+  </div>
 
-  <button id="clearAll" aria-label="Очистить все расходы">Очистить все расходы</button>
+  <ul id="expenseList" aria-live="polite"></ul>
 
 <script>
   const form = document.getElementById('expenseForm');
   const expenseList = document.getElementById('expenseList');
-  const clearAllBtn = document.getElementById('clearAll');
+  const clearAllBtn = document.getElementById('clearAllSmall');
+  const totalAmountEl = document.getElementById('totalAmount');
 
+  // Загружаем
   let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+
+  const ruFormatter = new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   function saveExpenses() {
     localStorage.setItem('expenses', JSON.stringify(expenses));
   }
 
+  function formatDateDDMMYYYY(dateStr) {
+    // Ожидаем ISO yyyy-mm-dd или Date совместимый
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    const dd = String(d.getDate()).padStart(2, '0');
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const yyyy = d.getFullYear();
+    return `${dd}.${mm}.${yyyy}`;
+  }
+
+  function formatAmount(num) {
+    const n = Number(num);
+    if (isNaN(n)) return num;
+    return ruFormatter.format(n) + ' ₽';
+  }
+
+  function calculateTotal() {
+    return expenses.reduce((s, e) => s + (Number(e.amount) || 0), 0);
+  }
+
   function renderExpenses() {
     expenseList.innerHTML = '';
-    if (expenses.length === 0) {
-      expenseList.innerHTML = '<li style="text-align:center; color:#5a5a5a;">Список расходов пуст</li>';
+    if (!expenses || expenses.length === 0) {
+      const liEmpty = document.createElement('li');
+      liEmpty.style.textAlign = 'center';
+      liEmpty.style.color = '#5a5a5a';
+      liEmpty.textContent = 'Список расходов пуст';
+      expenseList.appendChild(liEmpty);
+      totalAmountEl.textContent = formatAmount(0);
       return;
     }
+
     expenses.forEach((expense, index) => {
       const li = document.createElement('li');
 
-      const infoDiv = document.createElement('div');
-      infoDiv.className = 'expense-info';
-      infoDiv.innerHTML = `<strong>${expense.date}</strong> — ${expense.description}<br>Сумма: <strong>${expense.amount} ₽</strong>`;
+      const info = document.createElement('div');
+      info.className = 'expense-info';
+      const desc = document.createElement('span');
+      desc.className = 'desc';
+      desc.textContent = expense.description;
+      const meta = document.createElement('span');
+      meta.className = 'meta';
+      meta.textContent = formatDateDDMMYYYY(expense.date);
+
+      info.appendChild(desc);
+      info.appendChild(meta);
+
+      const right = document.createElement('div');
+      right.style.display = 'flex';
+      right.style.alignItems = 'center';
+      right.style.gap = '8px';
+
+      const amountEl = document.createElement('div');
+      amountEl.className = 'amount';
+      amountEl.textContent = formatAmount(expense.amount);
 
       const delBtn = document.createElement('button');
-      delBtn.className = 'delete-btn';
-      delBtn.textContent = 'Удалить';
-      delBtn.setAttribute('aria-label', `Удалить расход от ${expense.date} на сумму ${expense.amount} рублей`);
-      delBtn.onclick = () => {
+      delBtn.className = 'icon-btn';
+      delBtn.setAttribute('aria-label', `Удалить расход ${formatDateDDMMYYYY(expense.date)} ${formatAmount(expense.amount)}`);
+      delBtn.title = 'Удалить';
+      // SVG корзины (маленькая)
+      delBtn.innerHTML = `
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 6h18" stroke="#b44242" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 6l1-2h6l1 2" stroke="#b44242" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10 11v6" stroke="#b44242" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 11v6" stroke="#b44242" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 6l1 15h12l1-15" stroke="#b44242" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+      delBtn.addEventListener('click', () => {
         expenses.splice(index, 1);
         saveExpenses();
         renderExpenses();
-      };
+      });
 
-      li.appendChild(infoDiv);
-      li.appendChild(delBtn);
+      right.appendChild(amountEl);
+      right.appendChild(delBtn);
+
+      li.appendChild(info);
+      li.appendChild(right);
       expenseList.appendChild(li);
     });
+
+    const total = calculateTotal();
+    totalAmountEl.textContent = formatAmount(total);
   }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const date = form.date.value;
+    const date = form.date.value; // yyyy-mm-dd from input[type=date]
     const amountRaw = form.amount.value;
     const description = form.description.value.trim();
 
-    if (!date) {
-      alert('Пожалуйста, укажите дату.');
-      return;
-    }
-    if (!amountRaw || isNaN(amountRaw) || Number(amountRaw) <= 0) {
-      alert('Пожалуйста, введите корректную сумму.');
-      return;
-    }
-    if (!description) {
-      alert('Пожалуйста, введите назначение расхода.');
-      return;
-    }
+    if (!date) { alert('Пожалуйста, укажите дату.'); return; }
+    if (!amountRaw || isNaN(amountRaw) || Number(amountRaw) <= 0) { alert('Введите корректную сумму.'); return; }
+    if (!description) { alert('Введите назначение расхода.'); return; }
 
     const amount = Number(amountRaw).toFixed(2);
 
@@ -264,10 +238,7 @@
   });
 
   clearAllBtn.addEventListener('click', () => {
-    if (expenses.length === 0) {
-      alert('Список уже пуст.');
-      return;
-    }
+    if (!expenses || expenses.length === 0) { alert('Список уже пуст.'); return; }
     if (confirm('Вы уверены, что хотите удалить все расходы?')) {
       expenses = [];
       saveExpenses();
@@ -275,7 +246,7 @@
     }
   });
 
-  // Рендерим при загрузке страницы
+  // Рендер при загрузке
   renderExpenses();
 </script>
 </body>
